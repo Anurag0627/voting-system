@@ -15,17 +15,21 @@ const transporter = nodemailer.createTransport({
     rejectUnauthorized: false
   },
 
+  family: 4, // ✅ FORCE IPv4
+
   connectionTimeout: 10000,
   greetingTimeout: 10000,
   socketTimeout: 10000
 
 });
 
-exports.sendMail = async (to, subject, text) => {
+exports.sendMail = async(to, subject, text)=>{
+
   await transporter.sendMail({
     from: process.env.EMAIL_USER,
     to,
     subject,
     text
   });
+
 };
