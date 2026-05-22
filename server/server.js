@@ -6,10 +6,16 @@ require("dotenv").config();
 const app = express();
 
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://voting-system-gamma-peach.vercel.app"
+];
+
 app.use(cors({
-  origin: "https://voting-system-gamma-peach.vercel.app",
-  credentials:true
+  origin: allowedOrigins,
+  credentials: true
 }));
+
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI)
