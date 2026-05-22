@@ -42,7 +42,7 @@ Hello ${name},
 You are registered for ${eTitle} election.
 
 Login Link:
-http://localhost:5173/voter-login
+https://voting-system-gamma-peach.vercel.app/voter-login
 
 Email: ${email}
 Password: ${plainPassword}
