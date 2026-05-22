@@ -33,24 +33,34 @@ exports.addVoter = async (req, res) => {
     const eTitle = await election.title
 
     /* send credential mail */
-    await sendMail(
-      email,
-      "College Election Voting Credentials",
-`
-Hello ${name},
+    try {
 
-You are registered for ${eTitle} election.
+      await sendMail(
+        email,
+        "College Election Voting Credentials",
+        `
+        Hello ${name},
 
-Login Link:
-https://voting-system-gamma-peach.vercel.app/voter-login
+        You are registered for ${eTitle} election.
 
-Email: ${email}
-Password: ${plainPassword}
-Election Time: [ ${sTime.toLocaleString()} ] to [ ${eTime.toLocaleString()} ]
+        Login Link:
+        https://voting-system-gamma-peach.vercel.app/voter-login
 
-Login only during election time.
-`
-    );
+        Email: ${email}
+        Password: ${plainPassword}
+        Election Time: [ ${sTime.toLocaleString()} ] to [ ${eTime.toLocaleString()} ]
+
+        Login only during election time.
+        `
+      );
+
+      console.log("Mail sent");
+
+    } catch(mailErr){
+
+      console.log("MAIL ERROR:", mailErr);
+
+    }
 
     res.json({
       message: "Voter added and mail sent",
