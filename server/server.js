@@ -7,7 +7,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: "voting-system-gamma-peach.vercel.app",
+  origin: "https://voting-system-gamma-peach.vercel.app",
   credentials:true
 }));
 app.use(express.json());
