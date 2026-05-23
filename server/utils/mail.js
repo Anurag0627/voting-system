@@ -1,35 +1,21 @@
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
-const transporter = nodemailer.createTransport({
-
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-
-  tls: {
-    rejectUnauthorized: false
-  },
-
-  family: 4, // ✅ FORCE IPv4
-
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 10000
-
-});
+const resend = new Resend(
+  process.env.RESEND_API_KEY
+);
 
 exports.sendMail = async(to, subject, text)=>{
 
-  await transporter.sendMail({
-    from: process.env.EMAIL_USER,
+  await resend.emails.send({
+
+    from: "onboarding@resend.dev",
+
     to,
+
     subject,
+
     text
+
   });
 
 };
