@@ -1,19 +1,26 @@
-const { Resend } = require("resend");
+const nodemailer = require("nodemailer");
 
-const resend = new Resend(
-  process.env.RESEND_API_KEY
-);
+const transporter = nodemailer.createTransport({
+
+  host: "smtp-relay.brevo.com",
+  port: 587,
+  secure: false,
+
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS
+  }
+
+});
 
 exports.sendMail = async(to, subject, text)=>{
 
-  await resend.emails.send({
+  await transporter.sendMail({
 
-    from: "onlinevotingsys.com",
+    from: "Online Voting <yourgmail@gmail.com>",
 
     to,
-
     subject,
-
     text
 
   });
