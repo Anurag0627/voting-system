@@ -8,7 +8,7 @@ exports.sendMail = async(to, subject, text)=>{
 
   await resend.emails.send({
 
-    from: "onboarding@resend.dev",
+    from: "onlinevotingsys.com",
 
     to,
 
