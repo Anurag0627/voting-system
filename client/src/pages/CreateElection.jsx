@@ -37,19 +37,49 @@ export default function CreateElection(){
 
       const token = localStorage.getItem("token");
 
-      await api.post(
-        "/elections/create",
-        {
-          title,
-          startTime,
-          endTime
-        },
-        {
-          headers:{
-            Authorization:`Bearer ${token}`
-          }
+      const handleCreate = async()=>{
+
+        try{
+
+          setLoading(true);
+
+          // ✅ CONVERT ONLY ONCE
+          const start = new Date(startTime);
+
+          const end = new Date(endTime);
+
+          await api.post(
+            "/elections/create",
+            {
+              title,
+              description,
+
+              startTime: start,
+
+              endTime: end
+            },
+            {
+              headers:{
+                Authorization:`Bearer ${token}`
+              }
+            }
+          );
+
+          alert("Election Created");
+
+        }catch(err){
+
+          console.log(err);
+
+          alert("Failed to create election");
+
+        }finally{
+
+          setLoading(false);
+
         }
-      );
+
+      };
 
       setMessage("✅ Election Created Successfully");
       setTitle("");
@@ -101,7 +131,7 @@ export default function CreateElection(){
 
           <input
             type="datetime-local"
-            value={formatDateTimeLocal(startTime)}
+            value={startTime}
             onChange={(e)=>setStartTime(e.target.value)}
             className="w-full border rounded-lg p-3 mb-6 focus:outline-indigo-600"
           />
@@ -113,7 +143,7 @@ export default function CreateElection(){
 
           <input
             type="datetime-local"
-            value={formatDateTimeLocal(endTime)}
+            value={endTime}
             onChange={(e)=>setEndTime(e.target.value)}
             className="w-full border rounded-lg p-3 mb-8 focus:outline-indigo-600"
           />
