@@ -10,6 +10,20 @@ export default function CreateElection(){
   const [message,setMessage] = useState("");
   const [loading,setLoading] = useState(false);
 
+  const formatDateTimeLocal = (date) => {
+
+    if(!date) return "";
+
+    const d = new Date(date);
+
+    d.setMinutes(
+      d.getMinutes() - d.getTimezoneOffset()
+    );
+
+    return d.toISOString().slice(0,16);
+
+  };
+
   const handleCreate = async ()=>{
 
     if(!title || !startTime || !endTime){
@@ -87,7 +101,7 @@ export default function CreateElection(){
 
           <input
             type="datetime-local"
-            value={startTime}
+            value={formatDateTimeLocal(startTime)}
             onChange={(e)=>setStartTime(e.target.value)}
             className="w-full border rounded-lg p-3 mb-6 focus:outline-indigo-600"
           />
@@ -99,7 +113,7 @@ export default function CreateElection(){
 
           <input
             type="datetime-local"
-            value={endTime}
+            value={formatDateTimeLocal(endTime)}
             onChange={(e)=>setEndTime(e.target.value)}
             className="w-full border rounded-lg p-3 mb-8 focus:outline-indigo-600"
           />
