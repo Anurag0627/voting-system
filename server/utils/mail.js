@@ -2,35 +2,56 @@ const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
 
-  host: "smtp-relay.brevo.com",
-  port: 587,
-  secure: false,
+  host: "smtp.gmail.com",
+
+  port: 465,
+
+  secure: true,
 
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
+
+    user: process.env.EMAIL_USER,
+
+    pass: process.env.EMAIL_PASS
+
   },
 
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 10000
+  family: 4, // force IPv4
+
+  tls: {
+    rejectUnauthorized: false
+  },
+
+  connectionTimeout: 20000,
+  greetingTimeout: 20000,
+  socketTimeout: 20000
 
 });
 
 exports.sendMail = async(to, subject, text)=>{
 
-  console.log("Sending mail to:", to);
+  try{
 
-  const info = await transporter.sendMail({
+    console.log("Sending mail to:", to);
 
-    from: "Online Voting <yourgmail@gmail.com>",
+    const info = await transporter.sendMail({
 
-    to,
-    subject,
-    text
+      from: `Online Voting <${process.env.EMAIL_USER}>`,
 
-  });
+      to,
 
-  console.log("MAIL RESPONSE:", info);
+      subject,
+
+      text
+
+    });
+
+    console.log("MAIL SENT:", info.messageId);
+
+  }catch(err){
+
+    console.log("MAIL ERROR:", err);
+
+  }
 
 };
