@@ -110,12 +110,12 @@ export default function ManageElections(){
 
               <p>
                 <strong>Start:</strong>{" "}
-                {new Date(e.startTime).toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})}
+                {new Date(e.startTime).toLocaleString("en-IN", {dateStyle: "medium",timeStyle: "short"})}
               </p>
 
               <p>
                 <strong>End:</strong>{" "}
-                {new Date(e.endTime).toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})}
+                {new Date(e.endTime).toLocaleString("en-IN", {dateStyle: "medium",timeStyle: "short"})}
               </p>
 
             </div>
