@@ -10,87 +10,70 @@ export default function CreateElection(){
   const [message,setMessage] = useState("");
   const [loading,setLoading] = useState(false);
 
-  const formatDateTimeLocal = (date) => {
-
-    if(!date) return "";
-
-    const d = new Date(date);
-
-    d.setMinutes(
-      d.getMinutes() - d.getTimezoneOffset()
-    );
-
-    return d.toISOString().slice(0,16);
-
-  };
 
   const handleCreate = async ()=>{
 
     if(!title || !startTime || !endTime){
+
       setMessage("All fields required");
+
       return;
+
     }
 
     try{
+
       setLoading(true);
+
       setMessage("");
 
       const token = localStorage.getItem("token");
 
-      const handleCreate = async()=>{
+      // ✅ CONVERT ONLY ONCE
+      const start = new Date(startTime);
 
-        try{
+      const end = new Date(endTime);
 
-          setLoading(true);
+      await api.post(
 
-          // ✅ CONVERT ONLY ONCE
-          const start = new Date(startTime);
+        "/elections/create",
 
-          const end = new Date(endTime);
+        {
+          title,
 
-          await api.post(
-            "/elections/create",
-            {
-              title,
-              description,
+          startTime: start,
 
-              startTime: start,
+          endTime: end
+        },
 
-              endTime: end
-            },
-            {
-              headers:{
-                Authorization:`Bearer ${token}`
-              }
-            }
-          );
-
-          alert("Election Created");
-
-        }catch(err){
-
-          console.log(err);
-
-          alert("Failed to create election");
-
-        }finally{
-
-          setLoading(false);
-
+        {
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
         }
 
-      };
+      );
 
       setMessage("✅ Election Created Successfully");
+
       setTitle("");
+
       setStartTime("");
+
       setEndTime("");
 
     }catch(err){
+
+      console.log(err);
+
       setMessage("❌ Failed to create election");
+
     }finally{
+
       setLoading(false);
+
     }
+
   };
 
   return(
