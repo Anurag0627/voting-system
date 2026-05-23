@@ -5,7 +5,7 @@ export default function Sidebar(){
   const location = useLocation();
 
   const menu = [
-    {name:"Dashboard", path:"/dashboard"},
+    {name:"Dashboard", path:"/admin/dashboard"},
     {name:"Create Election", path:"/create-election"},
     {name:"Manage Elections", path:"/manage-elections"},
     {name:"Add Candidate", path:"/add-candidate"},

@@ -127,52 +127,66 @@ export default function VotingPage(){
 
   return(
 
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white p-6">
 
       {/* HEADER */}
 
-      <div className="text-center mb-8">
+      <div className="text-center mb-10">
 
-        <h1 className="text-4xl font-bold text-indigo-600">
-          🗳 College Election Voting
+        <h1 className="text-5xl font-extrabold mb-3 tracking-wide">
+
+          🗳 Online Election Portal
+
         </h1>
 
-        <p className="text-gray-600 mt-2">
-          Select your candidate and cast your vote
+        <p className="text-gray-300 text-lg">
+
+          Secure • Transparent • Digital Voting
+
         </p>
 
       </div>
 
-      {/* TIMER */}
+      {/* TIMER CARD */}
 
-      <div className="bg-white shadow rounded-xl p-4 text-center mb-10">
+      <div className="max-w-3xl mx-auto mb-8">
 
-        <h2 className="text-lg font-semibold">
+        <div className="backdrop-blur-xl bg-white/10 border border-white/10 shadow-2xl rounded-3xl p-6 text-center">
 
-          ⏱ Voting Ends In:
+          <h2 className="text-2xl font-bold mb-2">
 
-          <span className="text-red-500 ml-2">
+            ⏱ Election Countdown
+
+          </h2>
+
+          <div className="text-4xl font-extrabold text-yellow-300 tracking-widest">
+
             {timeLeft}
-          </span>
 
-        </h2>
+          </div>
+
+        </div>
 
       </div>
 
       {/* STATUS */}
 
-      <div className="mb-6 text-center">
+      <div className="text-center mb-10">
 
         {timeLeft === "Voting Closed" ? (
 
-          <div className="bg-red-100 text-red-600 p-3 rounded">
+          <div className="inline-block bg-red-500/20 border border-red-400 text-red-200 px-6 py-3 rounded-full font-semibold shadow-lg">
+
             🔴 Election Closed
+
           </div>
 
         ) : (
 
-          <div className="bg-emerald-100 text-emerald-700 p-3 rounded">
+          <div className="inline-block bg-emerald-500/20 border border-emerald-400 text-emerald-200 px-6 py-3 rounded-full font-semibold shadow-lg animate-pulse">
+
             🟢 Election Live
+
           </div>
 
         )}
@@ -181,37 +195,79 @@ export default function VotingPage(){
 
       {/* CANDIDATES */}
 
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
 
         {candidates.map(c=>(
 
           <div
+
             key={c._id}
+
             onClick={()=>setSelected(c._id)}
-            className={`cursor-pointer bg-white shadow rounded-xl p-6 text-center transition
-            ${
-              selected===c._id
-              ? "border-4 border-indigo-600 scale-105"
-              : "hover:scale-105"
-            }`}
+
+            className={`
+
+              cursor-pointer
+              backdrop-blur-xl
+              bg-white/10
+              border
+              rounded-3xl
+              p-8
+              text-center
+              shadow-2xl
+              transition-all
+              duration-300
+              hover:scale-105
+              hover:shadow-indigo-500/40
+
+              ${
+
+                selected===c._id
+
+                ? "border-indigo-400 scale-105 ring-4 ring-indigo-500/40"
+
+                : "border-white/10"
+
+              }
+
+            `}
+
           >
 
-            <div className="w-24 h-24 mx-auto rounded-full bg-gray-200 flex items-center justify-center text-4xl mb-4">
+            {/* AVATAR */}
+
+            <div className="w-28 h-28 mx-auto rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-5xl mb-5 shadow-lg">
+
               👤
+
             </div>
 
-            <h2 className="text-xl font-bold">
+            {/* NAME */}
+
+            <h2 className="text-2xl font-bold mb-2">
+
               {c.name}
+
             </h2>
 
-            <p className="text-gray-500 mb-4">
+            {/* POSITION */}
+
+            <p className="text-indigo-200 mb-5 text-lg">
+
               {c.position}
+
             </p>
 
+            {/* SELECTED */}
+
             {selected===c._id && (
-              <p className="text-indigo-600 font-semibold">
-                Selected
-              </p>
+
+              <div className="inline-block bg-indigo-500 text-white px-5 py-2 rounded-full font-semibold shadow-lg animate-bounce">
+
+                 Selected
+
+              </div>
+
             )}
 
           </div>
@@ -220,15 +276,22 @@ export default function VotingPage(){
 
       </div>
 
-      {/* BUTTON */}
+      {/* VOTE BUTTON */}
 
-      <div className="text-center mt-10">
+      <div className="text-center mt-14">
 
         <button
+
           onClick={vote}
-          className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4 rounded-xl text-lg shadow"
+
+          disabled={timeLeft === "Voting Closed"}
+
+          className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 px-12 py-5 rounded-2xl text-xl font-bold shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-50"
+
         >
+
           Cast Vote ✅
+
         </button>
 
       </div>

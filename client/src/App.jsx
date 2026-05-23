@@ -24,17 +24,17 @@ export default function App(){
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<AdminLogin/>}/>
-        <Route path="/dashboard" element={<ProtectedRoute><AdminDashboard/></ProtectedRoute>}/>
-        <Route path="/create-election" element={<ProtectedRoute><CreateElection/></ProtectedRoute>}/>
-        <Route path="/add-candidate" element={<ProtectedRoute><AddCandidate/></ProtectedRoute>}/>
-        <Route path="/add-voter" element={<ProtectedRoute><AddVoter/></ProtectedRoute>}/>
+        <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard/></ProtectedRoute>}/>
+        <Route path="/admin/create-election" element={<ProtectedRoute><CreateElection/></ProtectedRoute>}/>
+        <Route path="/admin/add-candidate" element={<ProtectedRoute><AddCandidate/></ProtectedRoute>}/>
+        <Route path="/admin/manage-voters" element={<ProtectedRoute><AddVoter/></ProtectedRoute>}/>
         <Route path="/voter-login" element={<VoterLogin/>}/>
         <Route path="/verify-otp" element={<VoterProtected><OTPVerify/></VoterProtected>}/>
         <Route path="/vote" element={<VotingPage/>}/>
         <Route path="/thank-you" element={<ThankYou/>}/>
-        <Route path="/results" element={<ProtectedRoute><Results/></ProtectedRoute>}/>
-        <Route path="/manage-elections" element={<ManageElections/>}/>
-        <Route path="/manage-candidates" element={<ManageCandidates/>}/>
+        <Route path="/admin/results" element={<ProtectedRoute><Results/></ProtectedRoute>}/>
+        <Route path="/admin/manage-elections" element={<ManageElections/>}/>
+        <Route path="/admin/manage-candidates" element={<ManageCandidates/>}/>
       </Routes>
     </BrowserRouter>
   );

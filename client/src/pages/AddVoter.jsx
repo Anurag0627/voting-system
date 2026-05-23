@@ -251,21 +251,39 @@ export default function AddVoter() {
 
     <AdminLayout>
 
-      <h1 className="text-3xl font-bold mb-6">
-        Manage Voters
-      </h1>
+      {/* HEADER */}
 
-      {/* ===== SELECT ELECTION ===== */}
+      <div className="mb-10">
 
-      <div className="bg-white shadow rounded-xl p-6 mb-8">
+        <h1 className="text-5xl font-extrabold text-slate-800 mb-3">
 
-        <label className="font-semibold">
+          👥 Manage Voters
+
+        </h1>
+
+        <p className="text-gray-500 text-lg">
+
+          Add, upload and manage election voters securely.
+
+        </p>
+
+      </div>
+
+      {/* SELECT ELECTION */}
+
+      <div className="bg-white rounded-3xl shadow-2xl p-8 mb-10 border border-gray-100">
+
+        <label className="font-bold text-lg text-slate-700">
+
           Select Election
+
         </label>
 
         <select
+
           value={electionId}
-          onChange={(e) => {
+
+          onChange={(e)=>{
 
             const id = e.target.value;
 
@@ -274,20 +292,23 @@ export default function AddVoter() {
             loadVoters(id);
 
           }}
-          className="w-full border p-3 rounded-lg mt-2"
+
+          className="w-full mt-4 p-4 rounded-2xl border border-gray-200 outline-none focus:ring-4 focus:ring-indigo-300"
+
         >
 
           <option value="">
+
             Select Election
+
           </option>
 
-          {elections.map((e) => (
+          {elections.map((e)=>(
 
-            <option
-              key={e._id}
-              value={e._id}
-            >
+            <option key={e._id} value={e._id}>
+
               {e.title}
+
             </option>
 
           ))}
@@ -296,68 +317,135 @@ export default function AddVoter() {
 
       </div>
 
-      {/* ===== MAIN GRID ===== */}
+      {/* MAIN GRID */}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
 
-        {/* ---------- LEFT ---------- */}
+        {/* LEFT */}
 
-        <div className="space-y-6">
+        <div className="space-y-8">
 
-          {/* ADD SINGLE VOTER */}
+          {/* ADD SINGLE */}
 
-          <div className="bg-white shadow rounded-xl p-6">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
+
+            <div className="flex items-center gap-3 mb-6">
+
+              <div className="bg-indigo-100 text-indigo-600 p-4 rounded-2xl text-2xl">
+
+                ➕
+
+              </div>
+
+              <div>
+
+                <h2 className="text-2xl font-bold text-slate-800">
+
+                  Add Single Voter
+
+                </h2>
+
+                <p className="text-gray-500">
+
+                  Register voters individually
+
+                </p>
+
+              </div>
+
+            </div>
 
             {message && (
 
-              <p
-                className={`mb-4 font-medium ${
+              <div className={`
+
+                mb-5
+                p-4
+                rounded-2xl
+                font-medium
+
+                ${
+
                   message.includes("✅")
-                    ? "text-emerald-600"
-                    : "text-red-600"
-                }`}
-              >
+
+                  ? "bg-emerald-100 text-emerald-700"
+
+                  : "bg-red-100 text-red-700"
+
+                }
+
+              `}>
+
                 {message}
-              </p>
+
+              </div>
 
             )}
 
-            <h2 className="font-semibold mb-4">
-              Add Single Voter
-            </h2>
-
             <input
-              placeholder="Name"
+
+              placeholder="Voter Name"
+
               value={name}
-              onChange={(e) =>
-                setName(e.target.value)
-              }
-              className="w-full border p-3 rounded mb-4"
+
+              onChange={(e)=>setName(e.target.value)}
+
+              className="w-full border border-gray-200 p-4 rounded-2xl mb-5 outline-none focus:ring-4 focus:ring-indigo-300"
+
             />
 
             <input
-              placeholder="Email"
+
+              placeholder="Email Address"
+
               value={email}
-              onChange={(e) =>
-                setEmail(e.target.value)
-              }
-              className="w-full border p-3 rounded mb-4"
+
+              onChange={(e)=>setEmail(e.target.value)}
+
+              className="w-full border border-gray-200 p-4 rounded-2xl mb-6 outline-none focus:ring-4 focus:ring-indigo-300"
+
             />
 
             <button
+
               onClick={addVoter}
+
               disabled={loading}
-              className={`w-full text-white p-3 rounded-lg transition-all duration-150
-              ${
-                loading
+
+              className={`
+
+                w-full
+                py-4
+                rounded-2xl
+                text-white
+                font-bold
+                shadow-xl
+                transition-all
+                duration-300
+
+                ${
+
+                  loading
+
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-indigo-600 hover:bg-indigo-800 transform hover:scale-105 active:scale-95 active:bg-indigo-900"
-              }`}
+
+                  : "bg-gradient-to-r from-indigo-500 to-purple-600 hover:scale-105 active:scale-95"
+
+                }
+
+              `}
+
             >
 
-              {loading
+              {
+
+                loading
+
                 ? "Adding Voter..."
-                : "Add Voter"}
+
+                : "Add Voter"
+
+              }
 
             </button>
 
@@ -365,31 +453,63 @@ export default function AddVoter() {
 
           {/* BULK UPLOAD */}
 
-          <div className="bg-white shadow rounded-xl p-6">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
 
-            <h2 className="font-semibold mb-4">
-              Bulk Upload (Excel / CSV)
-            </h2>
+            <div className="flex items-center gap-3 mb-6">
 
-            {/* Upload Box */}
+              <div className="bg-emerald-100 text-emerald-600 p-4 rounded-2xl text-2xl">
 
-            <label className="flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:bg-gray-50">
+                📁
+
+              </div>
+
+              <div>
+
+                <h2 className="text-2xl font-bold text-slate-800">
+
+                  Bulk Upload
+
+                </h2>
+
+                <p className="text-gray-500">
+
+                  Upload Excel or CSV files
+
+                </p>
+
+              </div>
+
+            </div>
+
+            {/* DROPZONE */}
+
+            <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-3xl h-48 cursor-pointer hover:bg-slate-50 transition-all duration-300">
 
               <div className="text-center">
 
-                <p className="text-gray-600 font-medium">
-                  📁 Click to choose Excel / CSV file
+                <div className="text-5xl mb-4">
+
+                  📤
+
+                </div>
+
+                <p className="font-semibold text-slate-700">
+
+                  Click to Upload File
+
                 </p>
 
-                <p className="text-sm text-gray-400">
-                  or drag and drop here
+                <p className="text-gray-400 mt-2">
+
+                  Excel / CSV Supported
+
                 </p>
 
                 {file && (
 
-                  <p className="mt-2 text-emerald-600 font-semibold">
+                  <p className="mt-4 text-emerald-600 font-bold">
 
-                    Selected: {file.name}
+                    {file.name}
 
                   </p>
 
@@ -398,37 +518,68 @@ export default function AddVoter() {
               </div>
 
               <input
+
                 ref={fileRef}
+
                 type="file"
+
                 accept=".xlsx,.csv"
-                onChange={(e) =>
-                  setFile(e.target.files[0])
-                }
+
+                onChange={(e)=>setFile(e.target.files[0])}
+
                 className="hidden"
+
               />
 
             </label>
 
             <button
+
               onClick={uploadExcel}
+
               disabled={uploading}
-              className={`w-full mt-4 text-white p-3 rounded-lg transition-all duration-150
-              ${
-                uploading
+
+              className={`
+
+                w-full
+                mt-6
+                py-4
+                rounded-2xl
+                text-white
+                font-bold
+                shadow-xl
+                transition-all
+                duration-300
+
+                ${
+
+                  uploading
+
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-emerald-600 hover:bg-emerald-800 transform hover:scale-105 active:scale-95 active:bg-emerald-900"
-              }`}
+
+                  : "bg-gradient-to-r from-emerald-500 to-teal-600 hover:scale-105 active:scale-95"
+
+                }
+
+              `}
+
             >
 
-              {uploading
+              {
+
+                uploading
+
                 ? `Uploading ${uploadCount}/${totalCount}...`
-                : "Upload File"}
+
+                : "Upload File"
+
+              }
 
             </button>
 
-            <p className="text-sm text-gray-500 mt-3">
+            <p className="mt-4 text-sm text-gray-500">
 
-              Excel columns must be:
+              Required columns:
               <strong> name | email</strong>
 
             </p>
@@ -437,105 +588,165 @@ export default function AddVoter() {
 
         </div>
 
-        {/* ---------- RIGHT ---------- */}
+        {/* RIGHT */}
 
-        <div className="bg-white shadow rounded-xl p-6">
+        <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
 
-          <h2 className="text-xl font-semibold mb-4">
-            Registered Voters
-          </h2>
+          {/* HEADER */}
+
+          <div className="flex justify-between items-center mb-6">
+
+            <div>
+
+              <h2 className="text-3xl font-bold text-slate-800">
+
+                Registered Voters
+
+              </h2>
+
+              <p className="text-gray-500">
+
+                Total: {voters.length}
+
+              </p>
+
+            </div>
+
+            <div className="bg-indigo-100 text-indigo-700 px-5 py-2 rounded-full font-semibold">
+
+              👥 Active List
+
+            </div>
+
+          </div>
 
           {/* SEARCH */}
 
           <input
+
             placeholder="Search voter..."
+
             value={search}
-            onChange={(e) =>
-              setSearch(e.target.value)
-            }
-            className="border p-2 rounded mb-4 w-full"
+
+            onChange={(e)=>setSearch(e.target.value)}
+
+            className="w-full border border-gray-200 p-4 rounded-2xl mb-6 outline-none focus:ring-4 focus:ring-indigo-300"
+
           />
 
-          <table className="w-full text-left">
+          {/* TABLE */}
 
-            <thead>
+          <div className="overflow-auto rounded-2xl border border-gray-200">
 
-              <tr className="border-b">
+            <table className="w-full">
 
-                <th className="p-2">Name</th>
-                <th className="p-2">Email</th>
-                <th className="p-2">Action</th>
-
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              {voters.length === 0 && (
+              <thead className="bg-slate-100">
 
                 <tr>
 
-                  <td
-                    colSpan="3"
-                    className="p-4 text-center text-gray-400"
-                  >
-                    No voters available
-                  </td>
+                  <th className="p-4 text-left">
+
+                    Name
+
+                  </th>
+
+                  <th className="p-4 text-left">
+
+                    Email
+
+                  </th>
+
+                  <th className="p-4 text-center">
+
+                    Action
+
+                  </th>
 
                 </tr>
 
-              )}
+              </thead>
 
-              {voters
-                .filter((v) =>
+              <tbody>
 
-                  v.name
-                    .toLowerCase()
-                    .includes(search.toLowerCase())
+                {voters.length===0 && (
 
-                  ||
+                  <tr>
 
-                  v.email
-                    .toLowerCase()
-                    .includes(search.toLowerCase())
+                    <td
 
-                )
-                .map((v) => (
+                      colSpan="3"
 
-                  <tr
-                    key={v._id}
-                    className="border-b"
-                  >
+                      className="text-center p-10 text-gray-400"
 
-                    <td className="p-2">
-                      {v.name}
-                    </td>
+                    >
 
-                    <td className="p-2">
-                      {v.email}
-                    </td>
-
-                    <td className="p-2">
-
-                      <button
-                        onClick={() =>
-                          deleteVoter(v._id)
-                        }
-                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700 transform hover:scale-105 active:scale-95 active:bg-red-900 transition-all duration-150"
-                      >
-                        Delete
-                      </button>
+                      No voters available
 
                     </td>
 
                   </tr>
 
-                ))}
+                )}
 
-            </tbody>
+                {voters
 
-          </table>
+                  .filter((v)=>
+
+                    v.name.toLowerCase().includes(search.toLowerCase())
+
+                    ||
+
+                    v.email.toLowerCase().includes(search.toLowerCase())
+
+                  )
+
+                  .map((v)=>(
+
+                    <tr
+
+                      key={v._id}
+
+                      className="border-t hover:bg-slate-50 transition-all duration-200"
+
+                    >
+
+                      <td className="p-4 font-medium">
+
+                        {v.name}
+
+                      </td>
+
+                      <td className="p-4 text-gray-600">
+
+                        {v.email}
+
+                      </td>
+
+                      <td className="p-4 text-center">
+
+                        <button
+
+                          onClick={()=>deleteVoter(v._id)}
+
+                          className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-semibold transition-all duration-300 hover:scale-105 active:scale-95"
+
+                        >
+
+                          Delete
+
+                        </button>
+
+                      </td>
+
+                    </tr>
+
+                  ))}
+
+              </tbody>
+
+            </table>
+
+          </div>
 
         </div>
 

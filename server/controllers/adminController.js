@@ -44,7 +44,10 @@ exports.loginAdmin = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    res.json({ token });
+    res.json({
+      token,
+      role:"admin"
+    });
 
   } catch (err) {
     res.status(500).json(err.message);

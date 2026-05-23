@@ -67,117 +67,245 @@ export default function ManageElections(){
   };
 
   return(
+
     <AdminLayout>
 
-      <h1 className="text-3xl font-bold mb-8">
-        Manage Elections
-      </h1>
+      {/* HEADER */}
 
-      <div className="space-y-6">
+      <div className="mb-10">
 
-        {elections.length === 0 && (
-          <p className="text-gray-400">No elections available</p>
-        )}
+        <h1 className="text-5xl font-extrabold text-slate-800 mb-3">
+
+          🗳 Manage Elections
+
+        </h1>
+
+        <p className="text-gray-500 text-lg">
+
+          Control election activity, status and lifecycle.
+
+        </p>
+
+      </div>
+
+      {/* EMPTY */}
+
+      {elections.length===0 && (
+
+        <div className="bg-white rounded-3xl shadow-xl p-16 text-center text-gray-400 text-xl">
+
+          No elections available
+
+        </div>
+
+      )}
+
+      {/* ELECTION GRID */}
+
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
 
         {elections.map(e=>(
+
           <div
+
             key={e._id}
-            className="bg-white shadow-lg rounded-xl p-6"
+
+            className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 hover:scale-[1.01] transition-all duration-300"
+
           >
 
-            {/* HEADER */}
-            <div className="flex justify-between items-center mb-4">
+            {/* TOP */}
 
-              <h2 className="text-2xl font-bold text-gray-800">
-                {e.title}
-              </h2>
+            <div className="flex justify-between items-start mb-6 gap-4">
 
-              <span className={`px-4 py-1 rounded-full text-white font-semibold
+              <div>
+
+                <h2 className="text-3xl font-extrabold text-slate-800 mb-2">
+
+                  {e.title}
+
+                </h2>
+
+                <p className="text-gray-500">
+
+                  Election Management Panel
+
+                </p>
+
+              </div>
+
+              {/* STATUS */}
+
+              <div className={`
+
+                px-5
+                py-2
+                rounded-full
+                text-white
+                font-bold
+                shadow-lg
+
                 ${
+
                   e.status==="Active"
+
                   ? "bg-emerald-500"
+
                   : e.status==="Upcoming"
+
                   ? "bg-yellow-500"
+
                   : "bg-red-500"
-                }`}>
+
+                }
+
+              `}>
+
                 {e.status}
-              </span>
+
+              </div>
 
             </div>
 
-            {/* TIME INFO */}
-            <div className="text-gray-600 mb-6">
+            {/* TIME SECTION */}
 
-              <p>
-                <strong>Start:</strong>{" "}
-                {new Date(e.startTime).toLocaleString("en-IN", {
-                  timeZone: "Asia/Kolkata",
-                  dateStyle: "medium",
-                  timeStyle: "short"
-                })}
-              </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
 
-              <p>
-                <strong>End:</strong>{" "}
-                {new Date(e.endTime).toLocaleString("en-IN", {
-                  timeZone: "Asia/Kolkata",
-                  dateStyle: "medium",
-                  timeStyle: "short"
-                })}
-              </p>
+              {/* START */}
+
+              <div className="bg-slate-100 rounded-2xl p-5">
+
+                <p className="text-gray-500 mb-2 font-medium">
+
+                   Start Time
+
+                </p>
+
+                <h3 className="font-bold text-slate-800 text-lg leading-relaxed">
+
+                  {
+
+                    new Date(e.startTime).toLocaleString(
+
+                      "en-IN",
+
+                      {
+
+                        timeZone:"Asia/Kolkata",
+
+                        dateStyle:"medium",
+
+                        timeStyle:"short"
+
+                      }
+
+                    )
+
+                  }
+
+                </h3>
+
+              </div>
+
+              {/* END */}
+
+              <div className="bg-slate-100 rounded-2xl p-5">
+
+                <p className="text-gray-500 mb-2 font-medium">
+
+                  ⏱ End Time
+
+                </p>
+
+                <h3 className="font-bold text-slate-800 text-lg leading-relaxed">
+
+                  {
+
+                    new Date(e.endTime).toLocaleString(
+
+                      "en-IN",
+
+                      {
+
+                        timeZone:"Asia/Kolkata",
+
+                        dateStyle:"medium",
+
+                        timeStyle:"short"
+
+                      }
+
+                    )
+
+                  }
+
+                </h3>
+
+              </div>
 
             </div>
 
             {/* ACTION BUTTONS */}
-            <div className="flex gap-3 flex-wrap">
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
 
               <button
+
                 onClick={()=>startElection(e._id)}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg transform hover:scale-105 active:scale-95
-                          active:bg-emerald-900
-                          transition-all duration-150"
+
+                className="bg-emerald-500 hover:bg-emerald-600 text-white py-3 rounded-2xl font-bold shadow-lg transition-all duration-300 hover:scale-105 active:scale-95"
+
               >
-                Start Election
+
+                 Start
+
               </button>
 
               <button
+
                 onClick={()=>stopElection(e._id)}
-                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transform hover:scale-105 active:scale-95
-                          active:bg-red-900
-                          transition-all duration-150"
+
+                className="bg-red-500 hover:bg-red-600 text-white py-3 rounded-2xl font-bold shadow-lg transition-all duration-300 hover:scale-105 active:scale-95"
+
               >
-                Stop Election
+
+                 Stop
+
               </button>
 
               <button
+
                 onClick={()=>resetElection(e._id)}
-                className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transform hover:scale-105 active:scale-95
-                          active:bg-yellow-900
-                          transition-all duration-150"
+
+                className="bg-yellow-500 hover:bg-yellow-600 text-white py-3 rounded-2xl font-bold shadow-lg transition-all duration-300 hover:scale-105 active:scale-95"
+
               >
-                Reset
+
+                 Reset
+
               </button>
 
               <button
+
                 onClick={()=>deleteElection(e._id)}
-                className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-lg transform hover:scale-105 active:scale-95
-                          active:bg-gray-900
-                          transition-all duration-150"
+
+                className="bg-slate-700 hover:bg-slate-800 text-white py-3 rounded-2xl font-bold shadow-lg transition-all duration-300 hover:scale-105 active:scale-95"
+
               >
-                Delete
+
+                 Delete
+
               </button>
 
             </div>
 
-            
-
           </div>
-        ))}
 
-          
+        ))}
 
       </div>
 
     </AdminLayout>
+
   );
 }
