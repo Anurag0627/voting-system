@@ -21,7 +21,7 @@ export default function AdminLayout({ children }){
 
     localStorage.removeItem("role");
 
-    navigate("/admin-login");
+    navigate("/");
 
   };
 

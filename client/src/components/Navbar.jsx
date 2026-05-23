@@ -1,24 +1,42 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Navbar(){
 
+  const navigate = useNavigate();
+
+  const logout = ()=>{
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+
+    navigate("/");
+
+  };
+
   return(
-    <div className="bg-white shadow flex justify-between items-center p-4">
+
+    <div className="bg-white shadow flex justify-between items-center p-4 rounded-2xl">
 
       <h2 className="text-xl font-semibold text-gray-700">
+
         Admin Dashboard
+
       </h2>
 
       <button
-        className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transform hover:scale-105 active:scale-95
-  active:bg-red-900
-  transition-all duration-150"
-        onClick={()=>{
-          localStorage.clear();
-          window.location="/";
-        }}
+
+        onClick={logout}
+
+        className="bg-red-600 text-white px-5 py-2 rounded-xl hover:bg-red-700 hover:scale-105 active:scale-95 transition-all duration-150 shadow-lg"
+
       >
+
         Logout
+
       </button>
 
     </div>
+
   );
+
 }
