@@ -9,20 +9,28 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS
-  }
+  },
+
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 10000
 
 });
 
 exports.sendMail = async(to, subject, text)=>{
 
-  await transporter.sendMail({
+  console.log("Sending mail to:", to);
 
-    from: "Online Voting <anuragkumbhar13@gmail.com>",
+  const info = await transporter.sendMail({
+
+    from: "Online Voting <yourgmail@gmail.com>",
 
     to,
     subject,
     text
 
   });
+
+  console.log("MAIL RESPONSE:", info);
 
 };

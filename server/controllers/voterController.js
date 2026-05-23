@@ -35,6 +35,8 @@ exports.addVoter = async (req, res) => {
     /* send credential mail */
     try {
 
+      console.log("Mail Sending...")
+
       await sendMail(
         email,
         "College Election Voting Credentials",
