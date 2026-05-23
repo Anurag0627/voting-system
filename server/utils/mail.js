@@ -8,6 +8,8 @@ exports.sendMail = async(to, subject, text)=>{
 
   try{
 
+    console.log("Mail Sending...")
+
     const response = await resend.emails.send({
 
       from: "onboarding@resend.dev",
