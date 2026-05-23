@@ -17,7 +17,7 @@ exports.sendMail = async(to, subject, text)=>{
 
   await transporter.sendMail({
 
-    from: "Online Voting <yourgmail@gmail.com>",
+    from: "Online Voting <anuragkumbhar13@gmail.com>",
 
     to,
     subject,
